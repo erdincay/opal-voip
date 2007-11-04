@@ -32,6 +32,8 @@
 
 #include <ptlib.h>
 
+#include <sip/sipcon.h>
+
 #include "../pmutils.h"
 #include "h323ep.h"
 #include "sipep.h"

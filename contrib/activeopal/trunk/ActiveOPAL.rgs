@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'ActiveOPAL'
+		'ActiveOPAL.DLL'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}

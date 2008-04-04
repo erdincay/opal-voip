@@ -1,12 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ActiveOPAL", "ActiveOPAL.vcproj", "{34FE1005-62AE-4E42-B133-514481EB16FB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ActiveOPAL", "ActiveOPAL_2005.vcproj", "{34FE1005-62AE-4E42-B133-514481EB16FB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ActiveOPAL PS", "ActiveOPAL_PS.vcproj", "{1CEFD338-A6D5-4C73-A0C2-6720B16FE87B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{34FE1005-62AE-4E42-B133-514481EB16FB} = {34FE1005-62AE-4E42-B133-514481EB16FB}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ActiveOPAL PS", "ActiveOPAL_PS_2005.vcproj", "{1CEFD338-A6D5-4C73-A0C2-6720B16FE87B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -210,7 +210,6 @@ dtmf_rx_init
 dtmf_rx_set_realtime_callback
 dtmf_rx_parms
 dtmf_rx
-make_tone_descriptor
 make_tone_gen_descriptor
 tone_gen_init
 tone_gen
@@ -301,4 +300,11 @@ v8_release
 v8_tx
 v8_rx
 v8_log_supported_modulations
+t38_gateway_rx
+t38_terminal_send_timeout
+t38_set_t38_version
+t38_core_rx_ifp_packet
+t38_gateway_rx
+t38_gateway_tx
+t38_gateway_ecm_control
 

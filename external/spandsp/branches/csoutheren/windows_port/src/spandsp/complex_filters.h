@@ -22,11 +22,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
- * $Id: complex_filters.h,v 1.8 2007/04/05 19:20:49 steveu Exp $
+ * $Id: complex_filters.h,v 1.6 2006/10/24 13:45:28 steveu Exp $
  */
 
-#if !defined(_SPANDSP_COMPLEX_FILTERS_H_)
-#define _SPANDSP_COMPLEX_FILTERS_H_
+#if !defined(_COMPLEX_FILTERS_H_)
+#define _COMPLEX_FILTERS_H_
 
 typedef struct filter_s filter_t;
 
@@ -54,8 +54,7 @@ typedef struct
 } cfilter_t;
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 filter_t *filter_create(fspec_t *fs);

@@ -23,7 +23,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
- * $Id: adsi.c,v 1.39 2007/03/26 12:57:41 steveu Exp $
+ * $Id: adsi.c,v 1.37 2007/02/27 16:52:16 steveu Exp $
  */
 
 /*! \file */
@@ -125,7 +125,7 @@ static int adsi_tx_get_bit(void *user_data)
     }
     else
     {
-        bit = PUTBIT_END_OF_DATA;
+        bit = 2;
         if (s->tx_signal_on)
         {
             /* The FSK should now be switched off. */
@@ -426,26 +426,18 @@ void adsi_rx_init(adsi_rx_state_t *s,
 int adsi_tx(adsi_tx_state_t *s, int16_t *amp, int max_len)
 {
     int len;
-    int lenx;
 
     len = tone_gen(&(s->alert_tone_gen), amp, max_len);
-    if (s->tx_signal_on)
+    switch (s->standard)
     {
-        switch (s->standard)
-        {
-        case ADSI_STANDARD_CLIP_DTMF:
-            if (len < max_len)
-                len += dtmf_tx(&(s->dtmftx), amp, max_len - len);
-            break;
-        default:
-            if (len < max_len)
-            {
-                if ((lenx = fsk_tx(&(s->fsktx), amp + len, max_len - len)) <= 0)
-                    s->tx_signal_on = FALSE;
-                len += lenx;
-            }
-            break;
-        }
+    case ADSI_STANDARD_CLIP_DTMF:
+        if (len < max_len)
+            len += dtmf_tx(&(s->dtmftx), amp, max_len - len);
+        break;
+    default:
+        if (len < max_len  &&  s->tx_signal_on)
+            len += fsk_tx(&(s->fsktx), amp + len, max_len - len);
+        break;
     }
     return len;
 }

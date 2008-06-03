@@ -22,7 +22,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
- * $Id: fax_tests.c,v 1.65 2007/03/28 13:56:05 steveu Exp $
+ * $Id: fax_tests.c,v 1.63 2007/02/28 12:08:57 steveu Exp $
  */
 
 /*! \page fax_tests_page FAX tests
@@ -45,7 +45,7 @@
 #include <math.h>
 #endif
 #include <assert.h>
-#include <audiofile.h>
+//#include <audiofile.h>
 #include <tiffio.h>
 
 #include "spandsp.h"
@@ -68,7 +68,6 @@ struct machine_s
     int succeeded;
     char tag[50];
     int error_delay;
-    int total_audio_time;
 } machines[FAX_MACHINES];
 
 int test_local_interrupt = FALSE;
@@ -178,9 +177,11 @@ static int document_handler(t30_state_t *s, void *user_data, int event)
 
 int main(int argc, char *argv[])
 {
+	/*
     AFfilesetup filesetup;
     AFfilehandle wave_handle;
     AFfilehandle input_wave_handle;
+	*/
     int i;
     int j;
     int k;
@@ -198,8 +199,6 @@ int main(int argc, char *argv[])
     int use_line_hits;
     int polled_mode;
     int reverse_flow;
-    time_t start_time;
-    time_t end_time;
     char *page_header_info;
 
     log_audio = FALSE;
@@ -265,6 +264,7 @@ int main(int argc, char *argv[])
         }
     }
 
+/*
     input_wave_handle = AF_NULL_FILEHANDLE;
     if (input_audio_file_name)
     {
@@ -295,7 +295,7 @@ int main(int argc, char *argv[])
             exit(2);
         }
     }
-
+*/
     memset(silence, 0, sizeof(silence));
     for (j = 0;  j < FAX_MACHINES;  j++)
     {
@@ -356,10 +356,8 @@ int main(int argc, char *argv[])
         span_log_set_level(&mc->fax.logging, SPAN_LOG_SHOW_SEVERITY | SPAN_LOG_SHOW_PROTOCOL | SPAN_LOG_SHOW_TAG | SPAN_LOG_SHOW_SAMPLE_TIME | SPAN_LOG_FLOW);
         span_log_set_tag(&mc->fax.logging, mc->tag);
         memset(mc->amp, 0, sizeof(mc->amp));
-        mc->total_audio_time = 0;
         mc->done = FALSE;
     }
-    time(&start_time);
     for (;;)
     {
         alldone = TRUE;
@@ -367,17 +365,18 @@ int main(int argc, char *argv[])
         {
             mc = &machines[j];
 
-            if ((j & 1) == 0  &&  input_audio_file_name)
+/*
+			if ((j & 1) == 0  &&  input_audio_file_name)
             {
                 mc->len = afReadFrames(input_wave_handle, AF_DEFAULT_TRACK, mc->amp, SAMPLES_PER_CHUNK);
                 if (mc->len == 0)
                     break;
             }
             else
+*/
             {
                 mc->len = fax_tx(&mc->fax, mc->amp, SAMPLES_PER_CHUNK);
             }
-            mc->total_audio_time += SAMPLES_PER_CHUNK;
             /* The receive side always expects a full block of samples, but the
                transmit side may not be sending any when it doesn't need to. We
                may need to pad with some silence. */
@@ -420,23 +419,25 @@ int main(int argc, char *argv[])
                 alldone = FALSE;
         }
 
-        if (log_audio)
+/*
+		if (log_audio)
         {
             outframes = afWriteFrames(wave_handle, AF_DEFAULT_TRACK, out_amp, SAMPLES_PER_CHUNK);
             if (outframes != SAMPLES_PER_CHUNK)
                 break;
         }
+*/
 
         if (alldone  ||  j < FAX_MACHINES)
             break;
     }
-    time(&end_time);
     for (j = 0;  j < FAX_MACHINES;  j++)
     {
         mc = &machines[j];
         fax_release(&mc->fax);
     }
-    if (log_audio)
+/*
+	if (log_audio)
     {
         if (afCloseFile(wave_handle))
         {
@@ -454,7 +455,7 @@ int main(int argc, char *argv[])
         }
         afFreeFileSetup(filesetup);
     }
-    printf("Total audio time = %ds (wall time %ds)\n", machines[0].total_audio_time/8000, (int) (end_time - start_time));
+*/
     return  0;
 }
 /*- End of function --------------------------------------------------------*/

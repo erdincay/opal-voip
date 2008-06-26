@@ -1,0 +1,223 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>ATL 8.0 test page for object ActiveOpalControl</title>
+    </head>
+    
+    <body>
+        <object id="ActiveOpalControl" classid="CLSID:5718AE05-3223-4DF1-ABD7-E9BA190FEBA3"></object>
+        <script language="javascript" type="text/javascript">
+            function PlaceCall()
+            {
+                ActiveOpalControl.Registrar = "opalvoip.net";	
+                ActiveOpalControl.Call("8463");
+            }
+            
+            function registerEndPoint()
+            {
+                ActiveOpalControl.Registrar = "fwd.pulver.com";	
+                
+                ActiveOpalControl.UserName = "";
+                ActiveOpalControl.Password = "";
+                
+                ActiveOpalControl.Register();
+            }
+            
+            function initializeCallingDevice()
+            {
+                var sel1 = document.getElementById("c1"); 
+                var sel2 = document.getElementById("c2"); 
+
+                ActiveOpalControl.SoundPlayerDevices = sel1.options[sel1.selectedIndex].value;
+                ActiveOpalControl.SoundRecorderDevices = sel2.options[sel1.selectedIndex].value;
+
+                ActiveOpalControl.Initialize();
+            }
+            
+            function LoadSoundPlayDevices()
+            {
+                var strArrRow = new Array();
+                strArrRow = ActiveOpalControl.PlayerSoundDevices.split(';');
+                var x=document.getElementById("combo1"); 
+                var str = "<select id='c1' name='c1'>";
+                
+                for(i=0 ; i<strArrRow.length; i++)
+                    str += "<option value='"+strArrRow[i]+"'>"+strArrRow[i]+"</option>";
+
+                str += "</select>";
+                x.innerHTML = str;
+            }
+
+            function LoadSoundRecordDevices()
+            {
+                var strArrRow = new Array();
+                strArrRow = ActiveOpalControl.RecorderSoundDevices.split(';');
+                var x=document.getElementById("combo2"); 
+                var str = "<select id='c2' name='c2'>";
+                
+                for(i=0 ; i<strArrRow.length; i++)
+                    str += "<option value='"+strArrRow[i]+"'>"+strArrRow[i]+"</option>";
+
+                str += "</select>";
+                x.innerHTML = str;
+            }
+
+            function TerminateCall()
+            {
+	            ActiveOpalControl.Hangup();
+            }
+            
+            window.onload = function( )
+            {
+                LoadSoundPlayDevices();
+                LoadSoundRecordDevices();
+                initializeCallingDevice();
+                // registerEndPoint();
+            }
+        </script>
+
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnRegistering()">
+            OnRegistering();
+            
+            function OnRegistering()
+            {
+                alert("starting to register");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnCallCleared()">
+            OnCallCleared();
+            
+            function OnCallCleared()
+            {
+                alert("call cleared");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnCallDropped()">
+            OnCallDropped();
+            
+            function OnCallDropped()
+            {
+                alert("call dropped");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnHangingUp()">
+            OnHangingUp();
+            
+            function OnHangingUp()
+            {
+                alert("call hanging up");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnIncoming()">
+            OnIncoming();
+            
+            function OnIncoming()
+            {
+                alert("call incoming");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnInConversation()">
+            OnInConversation();
+            
+            function OnInConversation()
+            {
+                alert("in conversation");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnRegistered()">
+            OnRegistered();
+            
+            function OnRegistered()
+            {
+                alert("successfully registered");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnRegistrationFailed()">
+            OnRegistrationFailed();
+            
+            function OnRegistrationFailed()
+            {
+                alert("unable to register");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnRinging()">
+            OnRinging();
+            
+            function OnRinging()
+            {
+                alert("call ringing");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnUnRegistering()">
+            OnUnRegistering();
+            
+            function OnUnRegistering()
+            {
+                alert("attempting to remove registration");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnUnRegistered()">
+            OnUnRegistered();
+            
+            function OnUnRegistered()
+            {
+                alert("succesfully removed registration");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnUnRegistrationFailed()">
+            OnUnRegistrationFailed();
+            
+            function OnUnRegistrationFailed()
+            {
+                alert("unable to remove registration");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnReRegistering()">
+            OnReRegistering();
+            
+            function OnReRegistering()
+            {
+                alert("reRegistering");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnReRegistered()">
+            OnReRegistered();
+            
+            function OnReRegistered()
+            {
+                alert("succesfully reRegistered");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnReRegistrationFailed()">
+            OnReRegistrationFailed();
+            
+            function OnReRegistrationFailed()
+            {
+                alert("reRegistraion Failed");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnAnsweringCall()">
+            OnAnsweringCall();
+            
+            function OnAnsweringCall()
+            {
+                alert("Answering Call");
+            }
+        </script>
+        <script language="javascript" type="text/javascript" FOR="ActiveOpalControl" EVENT="OnCalling()">
+            OnCalling();
+
+            function OnCalling()
+            {
+                alert("call started");
+            }
+        </script>
+        
+        <div id="combo1" ></div><br/>
+        <div id="combo2" ></div><br /><br />
+
+        <div id="loggingDiv"></div>
+        
+        <input type="button" onclick="PlaceCall()" value="Call" />
+        <input type="button" onclick="TerminateCall()" value="Hangup" />
+    </body>
+</html>

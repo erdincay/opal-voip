@@ -40,7 +40,8 @@ END
 
 3 TEXTINCLUDE 
 BEGIN
-    "\r\n"
+    "1 TYPELIB ""ActiveOpal.tlb""\r\n"
+    "\0"
 END
 
 #endif    // APSTUDIO_INVOKED
@@ -68,13 +69,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "Vox Gratia"
-            VALUE "FileDescription", "Active X control for Open Phone Abstraction Library"
+            VALUE "CompanyName", "TODO: <Company name>"
+            VALUE "FileDescription", "TODO: <File description>"
             VALUE "FileVersion", "1.0.0.1"
-            VALUE "LegalCopyright", "(c) VoxGratia.  All rights reserved."
-            VALUE "InternalName", "ActiveOPAL.dll"
-            VALUE "OriginalFilename", "ActiveOPAL.dll"
-            VALUE "ProductName", "Active OPAL"
+            VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
+            VALUE "InternalName", "ActiveOpal.dll"
+            VALUE "OriginalFilename", "ActiveOpal.dll"
+            VALUE "ProductName", "TODO: <Product name>"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -90,14 +91,20 @@ END
 // REGISTRY
 //
 
-IDR_ACTIVEOPAL               REGISTRY                "ActiveOPAL.rgs"
+IDR_ACTIVEOPAL          REGISTRY                "ActiveOpal.rgs"
+IDR_ACTIVEOPALCONTROL   REGISTRY                "ActiveOpalControl.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Bitmap
 //
 
-IDB_ACTIVEOPALCTRL           BITMAP                  "ActiveOPAL.bmp"
+IDB_ACTIVEOPALCONTROL   BITMAP                  "ActiveOpalControl.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// HTML
+//
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -106,7 +113,7 @@ IDB_ACTIVEOPALCTRL           BITMAP                  "ActiveOPAL.bmp"
 
 STRINGTABLE 
 BEGIN
-    IDS_PROJNAME            "ActiveOPAL"
+    IDS_PROJNAME            "ActiveOpal"
 END
 
 #endif    // English (U.S.) resources
@@ -119,7 +126,7 @@ END
 //
 // Generated from the TEXTINCLUDE 3 resource.
 //
-
+1 TYPELIB "ActiveOpal.tlb"
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED

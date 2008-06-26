@@ -1,5 +1,5 @@
 
-LIBRARY      "ActiveOPALPS"
+LIBRARY      "ActiveOpalPS"
 
 EXPORTS
 	DllGetClassObject       PRIVATE

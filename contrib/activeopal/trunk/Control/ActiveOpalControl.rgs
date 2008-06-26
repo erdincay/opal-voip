@@ -1,0 +1,34 @@
+HKCR
+{
+	ActiveOpal.ActiveOpalControl.1 = s 'ActiveOpalControl Class'
+	{
+		CLSID = s '{5718AE05-3223-4DF1-ABD7-E9BA190FEBA3}'
+	}
+	ActiveOpal.ActiveOpalControl = s 'ActiveOpalControl Class'
+	{
+		CLSID = s '{5718AE05-3223-4DF1-ABD7-E9BA190FEBA3}'
+		CurVer = s 'ActiveOpal.ActiveOpalControl.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {5718AE05-3223-4DF1-ABD7-E9BA190FEBA3} = s 'ActiveOpalControl Class'
+		{
+			ProgID = s 'ActiveOpal.ActiveOpalControl.1'
+			VersionIndependentProgID = s 'ActiveOpal.ActiveOpalControl'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			ForceRemove 'Control'
+			ForceRemove 'ToolboxBitmap32' = s '%MODULE%, 102'
+			'MiscStatus' = s '0'
+			{
+			    '1' = s '%OLEMISC%'
+			}
+			'TypeLib' = s '{F2C26953-81D8-40F8-8ECF-17E9803B5658}'
+			'Version' = s '1.0'
+		}
+	}
+}

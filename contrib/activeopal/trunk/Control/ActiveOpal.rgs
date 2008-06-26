@@ -2,8 +2,8 @@ HKCR
 {
 	NoRemove AppID
 	{
-		'%APPID%' = s 'ActiveOPAL'
-		'ActiveOPAL.DLL'
+		'%APPID%' = s 'ActiveOpal'
+		'ActiveOpal.DLL'
 		{
 			val AppID = s '%APPID%'
 		}

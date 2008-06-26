@@ -1,0 +1,126 @@
+/*
+*
+* ActiveOpal.idl : IDL source for ActiveOpal
+*
+* Copyright (C) 2007-2008 Telefonik (http://www.telefonik.com)
+*
+* Developer(s): Dennis White (dennis.white@telefonik.com)
+*
+* This file is part of ActiveOpal.
+
+* ActiveOpal is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* ActiveOpal is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+
+* You should have received a copy of the GNU General Public License
+* along with ActiveOpal.  If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+
+#include "olectl.h"
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(4D1F6C62-5F8B-4A86-AA4B-EEFC9DBD0505),
+	dual,
+	nonextensible,
+	helpstring("IActiveOpalControl Interface"),
+	pointer_default(unique)
+]
+interface IActiveOpalControl : IDispatch{
+	[id(1), helpstring("method Initialize")] HRESULT Initialize(void);
+	[id(2), helpstring("method UnInitialize")] HRESULT UnInitialize(void);
+	[id(3), helpstring("method Register")] HRESULT Register(void);
+	[id(4), helpstring("method UnRegister")] HRESULT UnRegister(void);
+	[id(5), helpstring("method Call")] HRESULT Call([in] BSTR strCalledNumber);
+	[id(6), helpstring("method RejectCall")] HRESULT RejectCall(void);
+	[id(7), helpstring("method Hangup")] HRESULT Hangup(void);
+	[id(8), helpstring("method HoldCall")] HRESULT HoldCall(void);
+	[id(9), helpstring("method UnHoldCall")] HRESULT UnHoldCall(void);
+	[id(10), helpstring("method TransferCall")] HRESULT TransferCall(void);
+	[id(11), helpstring("method MuteInputDevice")] HRESULT MuteInputDevice(void);
+	[id(12), helpstring("method MuteOutputDevice")] HRESULT MuteOutputDevice(void);
+	[id(13), helpstring("method UnMuteInputDevice")] HRESULT UnMuteInputDevice(void);
+	[id(14), helpstring("method UnMuteOutputDevice")] HRESULT UnMuteOutputDevice(void);
+	[propput, id(15), helpstring("property Registrar")] HRESULT Registrar([in] BSTR newVal);
+	[propput, id(16), helpstring("property UserName")] HRESULT UserName([in] BSTR newVal);
+	[propput, id(17), helpstring("property Password")] HRESULT Password([in] BSTR newVal);
+	[propget, id(18), helpstring("property PlayerSoundDevices")] HRESULT PlayerSoundDevices([out, retval] BSTR* pVal);
+	[propget, id(19), helpstring("property RecorderSoundDevices")] HRESULT RecorderSoundDevices([out, retval] BSTR* pVal);
+	[propput, id(20), helpstring("property SoundPlayerDevices")] HRESULT SoundPlayerDevices([in] BSTR newVal);
+	[propput, id(21), helpstring("property SoundRecorderDevices")] HRESULT SoundRecorderDevices([in] BSTR newVal);
+	[propput, id(22), helpstring("property StunServer")] HRESULT StunServer([in] BSTR newVal);
+	[propput, id(23), helpstring("property AutoAnswer")] HRESULT AutoAnswer([in] VARIANT_BOOL newVal);
+	[propput, id(24), helpstring("property AutoReRegistration")] HRESULT AutoReRegistration([in] VARIANT_BOOL newVal);
+	[id(25), helpstring("method Trigger_OnRegisteringEvent")] HRESULT Trigger_OnRegisteringEvent(void);
+	[id(26), helpstring("method Trigger_OnRegisteredEvent")] HRESULT Trigger_OnRegisteredEvent(void);
+	[id(27), helpstring("method Trigger_OnUnRegisteringEvent")] HRESULT Trigger_OnUnRegisteringEvent(void);
+	[id(28), helpstring("method Trigger_OnUnRegisteredEvent")] HRESULT Trigger_OnUnRegisteredEvent(void);
+	[id(29), helpstring("method Trigger_OnUnRegistrationFailedEvent")] HRESULT Trigger_OnUnRegistrationFailedEvent(void);
+	[id(30), helpstring("method Trigger_OnRegistrationFailedEvent")] HRESULT Trigger_OnRegistrationFailedEvent(void);
+	[id(31), helpstring("method Trigger_OnReRegisteringEvent")] HRESULT Trigger_OnReRegisteringEvent(void);
+	[id(32), helpstring("method Trigger_OnReRegisterFailedEvent")] HRESULT Trigger_OnReRegisterFailedEvent(void);
+	[id(33), helpstring("method Trigger_OnReRegisteredEvent")] HRESULT Trigger_OnReRegisteredEvent(void);
+	[id(34), helpstring("method Trigger_OnCallClearedEvent")] HRESULT Trigger_OnCallClearedEvent(void);
+	[id(35), helpstring("method Trigger_OnCallingEvent")] HRESULT Trigger_OnCallingEvent(void);
+	[id(36), helpstring("method Trigger_OnRingingEvent")] HRESULT Trigger_OnRingingEvent(void);
+	[id(37), helpstring("method Trigger_OnHangingUpEvent")] HRESULT Trigger_OnHangingUpEvent(void);
+	[id(38), helpstring("method Trigger_OnAnsweringCallEvent")] HRESULT Trigger_OnAnsweringCallEvent(void);
+	[id(39), helpstring("method Trigger_OnInConversationEvent")] HRESULT Trigger_OnInConversationEvent(void);
+	[id(40), helpstring("method Trigger_OnCallDroppedEvent")] HRESULT Trigger_OnCallDroppedEvent(void);
+	[id(41), helpstring("method Trigger_OnIncomingEvent")] HRESULT Trigger_OnIncomingEvent(void);
+};
+
+[
+	uuid(F2C26953-81D8-40F8-8ECF-17E9803B5658),
+	version(1.0),
+	helpstring("ActiveOpal 1.0 Type Library")
+]
+library ActiveOpalLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(3C4D4F67-64EA-472F-95B2-D503F2E499C7),
+		helpstring("_IActiveOpalControlEvents Interface")
+	]
+	dispinterface _IActiveOpalControlEvents
+	{
+		properties:
+		methods:
+			[id(1), helpstring("method OnRegistering")] HRESULT OnRegistering(void);
+			[id(2), helpstring("method OnCallCleared")] HRESULT OnCallCleared(void);
+			[id(3), helpstring("method OnCallDropped")] HRESULT OnCallDropped(void);
+			[id(4), helpstring("method OnCalling")] HRESULT OnCalling(void);
+			[id(5), helpstring("method OnHangingUp")] HRESULT OnHangingUp(void);
+			[id(6), helpstring("method OnIncoming")] HRESULT OnIncoming(void);
+			[id(7), helpstring("method OnInConversation")] HRESULT OnInConversation(void);
+			[id(8), helpstring("method OnRegistered")] HRESULT OnRegistered(void);
+			[id(9), helpstring("method OnRegistrationFailed")] HRESULT OnRegistrationFailed(void);
+			[id(10), helpstring("method OnRinging")] HRESULT OnRinging(void);
+			[id(11), helpstring("method OnUnRegistering")] HRESULT OnUnRegistering(void);
+			[id(12), helpstring("method OnUnRegistered")] HRESULT OnUnRegistered(void);
+			[id(13), helpstring("method OnUnRegistrationFailed")] HRESULT OnUnRegistrationFailed(void);
+			[id(14), helpstring("method OnReRegistering")] HRESULT OnReRegistering(void);
+			[id(15), helpstring("method OnReRegistered")] HRESULT OnReRegistered(void);
+			[id(16), helpstring("method OnReRegistrationFailed")] HRESULT OnReRegistrationFailed(void);
+			[id(17), helpstring("method OnAnsweringCall")] HRESULT OnAnsweringCall(void);
+	};
+	[
+		uuid(5718AE05-3223-4DF1-ABD7-E9BA190FEBA3),
+		control,
+		helpstring("ActiveOpalControl Class")
+	]
+	coclass ActiveOpalControl
+	{
+		[default] interface IActiveOpalControl;
+		[default, source] dispinterface _IActiveOpalControlEvents;
+	};
+};

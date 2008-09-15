@@ -1,0 +1,15 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+h323=@OPAL_H323@
+sip=@OPAL_SIP@
+iax=@OPAL_IAX2@
+
+Name: opal
+Description: open phone application library
+Version: @OPAL_VERSION@
+Requires: ptlib
+Libs: -L${libdir} -lopal
+Cflags: -I${includedir}/opal @STDCCFLAGS@
+

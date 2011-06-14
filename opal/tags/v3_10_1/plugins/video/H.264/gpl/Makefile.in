@@ -1,0 +1,100 @@
+#
+# Makefile for x264 H.264 Video Codec Helper
+#
+# Copyright (C) 2004 Post Increment, All Rights Reserved
+#
+# The contents of this file are subject to the Mozilla Public License
+# Version 1.0 (the "License"); you may not use this file except in
+# compliance with the License. You may obtain a copy of the License at
+# http://www.mozilla.org/MPL/
+#
+# Software distributed under the License is distributed on an "AS IS"
+# basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
+# the License for the specific language governing rights and limitations
+# under the License.
+#
+# The Original Code is Open H323 library.
+#
+# The Initial Developer of the Original Code is Post Increment
+#
+# Contributor(s): ______________________________________.
+#
+# $Revision$
+# $Author$
+# $Date$
+
+VC_PLUGIN_DIR=@VC_PLUGIN_DIR@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+
+SHAREDDIR	= ../shared
+COMMONDIR       = ../../common
+PLUGINDIR       = ../../../
+OBJDIR := $(PLUGINDIR)/../lib_@OSTYPE@_@MACHTYPE@/plugins/h264_x264_gpl
+
+CC	 	=@CC@
+CXX	 	=@CXX@
+CFLAGS	 	=@CFLAGS@ @X264_CFLAGS@ -I$(COMMONDIR) -I$(PLUGINDIR) -I.. -DGPL_HELPER_APP
+LDFLAGS		=@LDFLAGS@ @DL_LIBS@
+
+
+vpath	%.cxx $(SHAREDDIR)
+vpath	%.cxx $(COMMONDIR)
+vpath	%.o   $(OBJDIR)
+
+SRCS   += $(SHAREDDIR)/h264frame.cxx \
+	  enc-ctx.cxx  \
+
+WIN32=@WIN32@
+ifeq ($(WIN32),yes)
+
+SRCS    += h264helper_win32.cxx
+TARGET	= h264_video_pwplugin_helper.exe
+
+else
+
+SRCS    += h264helper_unix.cxx
+TARGET	= h264_video_pwplugin_helper
+
+X264_LINK_STATIC=@X264_LINK_STATIC@
+ifneq ($(X264_LINK_STATIC),yes)
+SRCS   += x264loader_unix.cxx
+LDFLAGS += @X264_LIBS@
+endif
+
+endif # WIN32
+
+
+
+ifeq ($(VERBOSE),)
+Q_CC = @echo [CC] `echo $< | sed s^$(OBJDIR)/^^` ;
+Q_LD = @echo [LD] `echo $@ | sed s^$(OBJDIR)/^^` ;
+endif
+
+$(OBJDIR)/%.o : %.cxx
+	@mkdir -p $(OBJDIR) >/dev/null 2>&1
+	$(Q_CC)$(CXX) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR)/%.o : %.c
+	@mkdir -p $(OBJDIR) >/dev/null 2>&1
+	$(Q_CC)$(CC) $(CFLAGS) -c $< -o $@
+
+
+OBJECTS = $(addprefix $(OBJDIR)/,$(patsubst %.c,%.o,$(patsubst %.cxx,%.o,$(notdir $(SRCS)))))
+
+$(OBJDIR)/$(TARGET): $(OBJECTS)
+	$(Q_LD)$(CXX) -o $@ $^ $(LDFLAGS)
+
+install:
+	mkdir -p $(DESTDIR)$(libdir)/$(VC_PLUGIN_DIR)
+	install $(OBJDIR)/$(TARGET) $(DESTDIR)$(libdir)/$(VC_PLUGIN_DIR)
+
+uninstall:
+	rm -f $(DESTDIR)$(libdir)/$(VC_PLUGIN_DIR)/$(TARGET)
+
+clean:
+	rm -rf $(OBJDIR)
+
+###########################################
+
